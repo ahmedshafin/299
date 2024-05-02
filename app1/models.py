@@ -15,6 +15,12 @@ class report(models.Model) :
     cause = models.CharField(max_length=50)
     damage = models.CharField(max_length=50)
     comments = models.TextField()
+    
+class addRestaurentModel(models.Model) :
+    commpanyName = models.CharField(max_length=50)
+    issuedBy = models.CharField(max_length=50)
+    expiryDate = models.DateField()
+    message = models.TextField()
 
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -27,18 +27,26 @@ def viewHomepage(request) :
     return render(request, "index.html") 
 
 
-
+def dashboardView(request):
+    return render(request, 'adminDashboard.html')
 def loginView(request) :
     if  request.method == 'POST' :
         loginName = request.POST.get('logName')
         loginPass = request.POST.get('logPass')
         print(loginName, loginPass)
         user = authenticate(request,username = loginName, password = loginPass )
-        if user is not None :
-            login(request, user)
-            return redirect('home')
-        else:
-            return HttpResponse("Username or Password is incorrect") 
+        if loginName == "admin":
+            if user is not None :
+                login(request, user)
+                return redirect('dashboardView')
+            else:
+                return HttpResponse("Username or Password is incorrect")  
+        else:   
+            if user is not None :
+                login(request, user)
+                return redirect('home')
+            else:
+                return HttpResponse("Username or Password is incorrect") 
         
     return render(request, "index.html")     
 
@@ -80,6 +88,18 @@ def safetyView(request) :
 
 def certificateView(request) :
     return render(request, "certificate.html")
+
+def addRestaurentView(request):
+    if request.method =='POST' :
+        companyName = request.POST.get('company')
+        issue = request.POST.get('issuedBy')
+        expiry = request.POST.get('expiryDate')
+        message = request.POST.get('details')
+        add = addRestaurentModel(commpanyName=companyName, issuedBy=issue, expiryDate=expiry, message=message)
+        add.save()
+        return redirect('dashboard')
+    return render(request, 'addRestaurent.html')
+
 
 
 
