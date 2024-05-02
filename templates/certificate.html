@@ -133,35 +133,16 @@
   </div>
   <br>
   
-  
+  {% for i in restaurants %}
   <div class="certificate">
-    <h2>Certificate for Yum Cha District</h2>
+    <h2>Certificate for {{i.commpanyName}}</h2>
     <p>Certificate Number: FSC123456</p>
-    <p>Expiry Date: January 31, 2025</p>
+    <p>Expiry Date: {{i.expiryDate}}</p>
     <p>Issued By: FlameShield</p>
   </div>
+{% endfor %}
 
-  <div class="certificate">
-    <h2>Certificate for Pinewood Cafe</h2>
-    <p>Certificate Number: FSC789012</p>
-    <p>Expiry Date: March 15, 2025</p>
-    <p>Issued By: FlameShield</p>
-  </div>
-
-  <div class="certificate">
-    <h2>Certificate for Ginza</h2>
-    <p>Certificate Number: FSC390012</p>
-    <p>Expiry Date: December 20, 2026</p>
-    <p>Issued By: FlameShield</p>
-  </div>
-
-
-  <div class="certificate">
-    <h2>Certificate for Barcode Cafe</h2>
-    <p>Certificate Number: FSC675212</p>
-    <p>Expiry Date: May 20, 2026</p>
-    <p>Issued By: FlameShield</p>
-  </div>
+ 
 
   
   <!-- Add more certificates as needed -->

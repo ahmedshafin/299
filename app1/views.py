@@ -102,8 +102,12 @@ def aboutView(request) :
 def safetyView(request) :
     return render(request, "safety.html")
 
-def certificateView(request) :
-    return render(request, "certificate.html")
+def certificateView(request):
+    restaurants = addRestaurentModel.objects.filter()
+    args = {
+        "restaurants": restaurants,  
+    }
+    return render(request, "certificate.html", args)
 
 def addRestaurentView(request):
     if request.method =='POST' :
@@ -113,7 +117,7 @@ def addRestaurentView(request):
         message = request.POST.get('details')
         add = addRestaurentModel(commpanyName=companyName, issuedBy=issue, expiryDate=expiry, message=message)
         add.save()
-        return redirect('dashboard')
+        return redirect('dashboardView')
     return render(request, 'addRestaurent.html')
 
 def map(request, slug):
