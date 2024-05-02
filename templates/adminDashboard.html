@@ -123,14 +123,14 @@
 				<li>
 					<i class='bx bxs-calendar-check' ></i>
 					<span class="text">
-						<h3>0</h3>
+						<h3>{{report_count}}</h3>
 						<p>Total Reports</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bxs-group' ></i>
 					<span class="text">
-						<h3>0</h3>
+						<h3>{{user_count}}</h3>
 						<p>Total Users</p>
 					</span>
 				</li>
@@ -157,17 +157,26 @@
 								<th>User</th>
 								<th>Date</th>
 								<th>Status</th>
+								<th>Track</th>
 							</tr>
 						</thead>
 						<tbody>
+						{% for i in reports %}
 							<tr>
+								
 								<td>
-									<img src="static/img/people.png">
-									<p>TnS1</p>
+									
+									<p>{{i.location}}</p>
 								</td>
-								<td>04-04-2024</td>
+								<td>{{i.cause}}</td>
 								<td><span class="status completed">Completed</span></td>
+								
+								<form action ="{% url 'map' i.id %}" method="POST">
+									{% csrf_token %}
+								<td><input type="submit" name="track" value="Track"></input></td>
+							</form>
 							</tr>
+						{% endfor %}
 							
 						</tbody>
 					</table>

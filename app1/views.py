@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -28,7 +29,16 @@ def viewHomepage(request) :
 
 
 def dashboardView(request):
-    return render(request, 'adminDashboard.html')
+    reports = report.objects.filter()
+    report_count= len(reports)
+    all_users = User.objects.all()
+    user_count = len(all_users)
+    args = {
+        "reports": reports,
+        "report_count":report_count,
+        "user_count":user_count
+    }
+    return render(request, 'adminDashboard.html', args)
 def loginView(request) :
     if  request.method == 'POST' :
         loginName = request.POST.get('logName')
@@ -72,8 +82,14 @@ def reportView(request) :
         reason = request.POST.get('cause')
         extentDamage = request.POST.get('damage')
         description = request.POST.get('comments')
-        print(locate, reason, extentDamage, description)
-        rep = report(location=locate, cause=reason, damage=extentDamage, comments=description)
+        latitude = request.POST.get('latitude')
+        longitude = request.POST.get('longitude')
+        
+        # Do something with latitude and longitude
+        print("Latitude:", latitude)
+        print("Longitude:", longitude)
+        rep = report(location=locate, cause=reason, damage=extentDamage, comments=description, latitude=latitude,
+          longitude=longitude)
         rep.save()
         return redirect('home')
     
@@ -99,6 +115,15 @@ def addRestaurentView(request):
         add.save()
         return redirect('dashboard')
     return render(request, 'addRestaurent.html')
+
+def map(request, slug):
+    map_obj = get_object_or_404(report, id=slug)
+    latitude = map_obj.latitude
+    longitude = map_obj.longitude
+    google_maps_url = f"https://www.google.com/maps?q={latitude},{longitude}"
+    return redirect(google_maps_url)
+    
+    
 
 
 

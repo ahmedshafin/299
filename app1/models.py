@@ -15,6 +15,8 @@ class report(models.Model) :
     cause = models.CharField(max_length=50)
     damage = models.CharField(max_length=50)
     comments = models.TextField()
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     
 class addRestaurentModel(models.Model) :
     commpanyName = models.CharField(max_length=50)

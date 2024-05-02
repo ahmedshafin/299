@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fire Report Page</title>
@@ -69,7 +71,9 @@
 </style>
 </head>
 <body>
-
+    <script type="text/javascript">
+        var csrfToken = "{{ csrf_token }}"; // Assign the CSRF token value
+    </script>
 <div class="container">
     <h1>Fire Report Form</h1>
     <form action="#" method="post">
@@ -85,10 +89,36 @@
         
         <label for="comments">Additional Comments:</label>
         <textarea id="comments" name="comments"></textarea>
-        
+        <input type="hidden" name="latitude" id="latitudeInput">
+        <input type="hidden" name="longitude" id="longitudeInput">
         <input type="submit" value="Submit Report">
     </form>
+    <p id="demo"></p> <!-- This will display the location -->
 </div>
+<script>
+    const x = document.getElementById("demo");
 
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+      x.innerHTML = "Latitude: " + position.coords.latitude +
+      "<br>Longitude: " + position.coords.longitude;
+
+      document.getElementById("latitudeInput").value = position.coords.latitude;
+      document.getElementById("longitudeInput").value = position.coords.longitude;
+    }
+
+    // Call getLocation function when the page loads
+    getLocation();
+    
+
+
+</script>
 </body>
 </html>
