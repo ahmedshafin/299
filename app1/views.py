@@ -133,12 +133,25 @@ def addRestaurentView(request):
     return render(request, 'addRestaurent.html')
 
 
+#Contact Display
+def displayContactView(request):
+    contacts = contactUsModel.objects.filter()
+    
+    args = {
+        "contacts": contacts,  
+    }
+    return render(request, "contactAdmin.html",args)
+
+
 #GPS Tracking
 def map(request, slug):
     map_obj = get_object_or_404(report, id=slug)
     latitude = map_obj.latitude
     longitude = map_obj.longitude
     google_maps_url = f"https://www.google.com/maps?q={latitude},{longitude}"
+
+        # Appending the search query for nearby lakes to the Google Maps URL
+    google_maps_url += "&q=nearby river"
     return redirect(google_maps_url)
     
     

@@ -32,6 +32,7 @@ urlpatterns = [
     path('dashboard/', views.dashboardView, name= 'dashboardView'),
     path('map/<int:slug>', views.map, name= 'map'),
     path('addRestaurent/', views.addRestaurentView, name= 'addRestaurent'),
+    path('displayContact/', views.displayContactView, name = "displayContact"),
    
     
 ]
