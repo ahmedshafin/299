@@ -13,7 +13,8 @@ def homeView(request) :
 
 
 def viewHomepage(request) :
-    if  request.method =='POST':
+    #Create user code
+    if  request.method =='POST': 
         userName = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('pass1')
@@ -24,26 +25,33 @@ def viewHomepage(request) :
             myUser = User.objects.create_user(userName, email, password)
             myUser.save()
             return redirect('homepage')
-                 
+        #User have been created           
     return render(request, "index.html") 
 
 
+#Admin Dashboard
 def dashboardView(request):
     reports = report.objects.filter()
     report_count= len(reports)
     all_users = User.objects.all()
     user_count = len(all_users)
+    all_certificates = addRestaurentModel.objects.filter()
+    certificates_count = len(all_certificates)
     args = {
         "reports": reports,
         "report_count":report_count,
-        "user_count":user_count
+        "user_count":user_count,
+        "certificates_count":certificates_count
     }
     return render(request, 'adminDashboard.html', args)
+
+
+#User Authentication
 def loginView(request) :
     if  request.method == 'POST' :
         loginName = request.POST.get('logName')
         loginPass = request.POST.get('logPass')
-        print(loginName, loginPass)
+        
         user = authenticate(request,username = loginName, password = loginPass )
         if loginName == "admin":
             if user is not None :
@@ -61,7 +69,7 @@ def loginView(request) :
     return render(request, "index.html")     
 
   
-
+#Contact Us Page
 def contactUs(request) : 
     if request.method =='POST' :
         fullName = request.POST.get('full_name')
@@ -76,6 +84,7 @@ def contactUs(request) :
     return render(request, "contact.html")
 
 
+#User Report
 def reportView(request) :
     if request.method =='POST' :
         locate = request.POST.get('location')
@@ -85,15 +94,14 @@ def reportView(request) :
         latitude = request.POST.get('latitude')
         longitude = request.POST.get('longitude')
         
-        # Do something with latitude and longitude
-        print("Latitude:", latitude)
-        print("Longitude:", longitude)
+        # Do something with latitude and longitude  
         rep = report(location=locate, cause=reason, damage=extentDamage, comments=description, latitude=latitude,
           longitude=longitude)
         rep.save()
         return redirect('home')
     
     return render(request, "report.html")
+
 
 def aboutView(request) :
     return render(request, "about.html")
@@ -102,6 +110,8 @@ def aboutView(request) :
 def safetyView(request) :
     return render(request, "safety.html")
 
+
+#Adding Certification to User
 def certificateView(request):
     restaurants = addRestaurentModel.objects.filter()
     args = {
@@ -109,6 +119,8 @@ def certificateView(request):
     }
     return render(request, "certificate.html", args)
 
+
+#Adding Certification from Admin 
 def addRestaurentView(request):
     if request.method =='POST' :
         companyName = request.POST.get('company')
@@ -120,6 +132,8 @@ def addRestaurentView(request):
         return redirect('dashboardView')
     return render(request, 'addRestaurent.html')
 
+
+#GPS Tracking
 def map(request, slug):
     map_obj = get_object_or_404(report, id=slug)
     latitude = map_obj.latitude
