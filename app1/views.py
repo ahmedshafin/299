@@ -154,8 +154,13 @@ def map(request, slug):
     google_maps_url += "&q=nearby river"
     return redirect(google_maps_url)
     
-    
+def deleteContact(request, slug):
+    certificate = contactUsModel.objects.get(id=slug)
+    certificate.delete()
 
+        # Appending the search query for nearby lakes to the Google Maps URL
+    
+    return redirect('displayContact')
 
 
 

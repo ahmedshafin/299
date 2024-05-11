@@ -33,6 +33,7 @@ urlpatterns = [
     path('map/<int:slug>', views.map, name= 'map'),
     path('addRestaurent/', views.addRestaurentView, name= 'addRestaurent'),
     path('displayContact/', views.displayContactView, name = "displayContact"),
+    path('deleteContact/<int:slug>', views.deleteContact, name = "deleteContact"),
    
     
 ]

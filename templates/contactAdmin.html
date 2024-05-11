@@ -53,16 +53,18 @@ button:hover {
         <h1>Contact Us</h1>
         {% for i in contacts %}
         <div class="message">
-            <p>{{i.contactFullName}} {{i.contactEmail}} {{i.contactPhoneNumber}} {{i.contactSubject}} {{i.contactMessage}}</p>
-            <button id="readBtn">Read</button>
+            <p>Name: {{i.contactFullName}} </p>
+            <p>Email: {{i.contactEmail}}</p>
+            <p>Phone Number: {{i.contactPhoneNumber}}</p>
+            <p>Subject: {{i.contactSubject}}</p>
+            <p>Message: {{i.contactMessage}}</p>
+            <form action ="{% url 'deleteContact' i.id %}" method="POST">
+                {% csrf_token %}
+            <input type="submit" name="track" value="Done"></input>
+        </form>
         </div>
         {% endfor %}
     </div>
-    <script>
-        document.getElementById('readBtn').addEventListener('click', function() {
-    document.querySelector('.message').style.display = 'none';
-});
 
-    </script>
 </body>
 </html>
