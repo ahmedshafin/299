@@ -13,6 +13,11 @@ def homeView(request) :
 
 
 def viewHomepage(request) :
+               
+    return render(request, "index.html") 
+
+#User signUp
+def signUpView(request):
     #Create user code
     if  request.method =='POST': 
         userName = request.POST.get('username')
@@ -25,8 +30,9 @@ def viewHomepage(request) :
             myUser = User.objects.create_user(userName, email, password)
             myUser.save()
             return redirect('homepage')
-        #User have been created           
-    return render(request, "index.html") 
+        #User have been created
+    return render(request, "signup.html")
+
 
 
 #Admin Dashboard
