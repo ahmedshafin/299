@@ -23,6 +23,10 @@ class addRestaurentModel(models.Model) :
     issuedBy = models.CharField(max_length=50)
     expiryDate = models.DateField()
     message = models.TextField()
+    
+class picture(models.Model):
+    userName = models.TextField()
+    img = models.TextField()
 
 
 

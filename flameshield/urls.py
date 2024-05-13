@@ -35,6 +35,7 @@ urlpatterns = [
     path('displayContact/', views.displayContactView, name = "displayContact"),
     path('deleteContact/<int:slug>', views.deleteContact, name = "deleteContact"),
     path('signup/', views.signUpView, name = "signup"),
+    path('clickPicture/', views.clickPicture, name = "clickPicture"),
    
     
 ]

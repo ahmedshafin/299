@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -29,7 +29,7 @@ def signUpView(request):
         else:    
             myUser = User.objects.create_user(userName, email, password)
             myUser.save()
-            return redirect('homepage')
+            return redirect('clickPicture')
         #User have been created
     return render(request, "signup.html")
 
@@ -147,7 +147,20 @@ def displayContactView(request):
         "contacts": contacts,  
     }
     return render(request, "contactAdmin.html",args)
-
+#Contact Display
+def clickPicture(request):
+    last_object =User.objects.latest('id') 
+    last_object_user=last_object.username
+    if request.method=="POST":
+        img=request.POST.get("img_data")
+        picture_obj = picture.objects.create(
+            userName=last_object_user,
+            img=img
+        )
+        picture_obj.save()
+        return redirect('home')
+           
+    return render(request, "face.html")
 
 #GPS Tracking
 def map(request, slug):

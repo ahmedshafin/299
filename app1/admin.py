@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import contactUs, report,addRestaurentModel
+from app1.models import contactUs, report,addRestaurentModel, picture
 
 # Register your models here.
 
@@ -18,5 +18,7 @@ class restaurantAdmin(admin.ModelAdmin):
 
 admin.site.register(addRestaurentModel, restaurantAdmin)
     
-
+admin.site.register([
+    picture
+])
 
