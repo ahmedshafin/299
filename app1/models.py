@@ -29,7 +29,9 @@ class picture(models.Model):
     img = models.TextField()
 
 
-
+class TestUser(models.Model):
+    user=models.TextField()
+    img= models.TextField()
 
 
 

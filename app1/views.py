@@ -1,6 +1,8 @@
+import base64
+import os
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -68,7 +70,7 @@ def loginView(request) :
         else:   
             if user is not None :
                 login(request, user)
-                return redirect('home')
+                return redirect('faceRecog')
             else:
                 return HttpResponse("Username or Password is incorrect") 
         
@@ -151,6 +153,7 @@ def displayContactView(request):
 def clickPicture(request):
     last_object =User.objects.latest('id') 
     last_object_user=last_object.username
+    
     if request.method=="POST":
         img=request.POST.get("img_data")
         picture_obj = picture.objects.create(
@@ -181,7 +184,31 @@ def deleteContact(request, slug):
     
     return redirect('displayContact')
 
+def faceRecog(request):
+    if request.method=="POST":
+          
+    
+        return redirect(f"/check/")
+    return render(request,'faceRecog.html')
 
-
+def check(request):
+   
+    db = picture.objects.get(userName=request.user)
+    db_img=db.img
+    dbu=db.userName
+    temp = str(request.user)
+   
+    
+    db1 = TestUser.objects.get(user=temp)
+    db_img1=db1.img
+    dbu1=db1.user
+    
+    if dbu == dbu1 and db_img == db_img1:
+        print("ya")
+        return redirect(f"/home/")
+    else:
+        return HttpResponse("Access Denied. Face didnt match")    
     
 
+        
+       

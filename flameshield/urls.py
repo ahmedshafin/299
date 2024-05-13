@@ -36,6 +36,8 @@ urlpatterns = [
     path('deleteContact/<int:slug>', views.deleteContact, name = "deleteContact"),
     path('signup/', views.signUpView, name = "signup"),
     path('clickPicture/', views.clickPicture, name = "clickPicture"),
+    path('check/', views.check, name='check'),
+     path('faceRecog/', views.faceRecog, name='faceRecog'),
    
     
 ]
