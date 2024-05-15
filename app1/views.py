@@ -1,8 +1,8 @@
 import base64
 import os
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser, team
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -149,6 +149,7 @@ def displayContactView(request):
         "contacts": contacts,  
     }
     return render(request, "contactAdmin.html",args)
+
 #Contact Display
 def clickPicture(request):
     last_object =User.objects.latest('id') 
@@ -184,6 +185,8 @@ def deleteContact(request, slug):
     
     return redirect('displayContact')
 
+
+#Face Recognition Verification
 def faceRecog(request):
     if request.method=="POST":
           
@@ -207,7 +210,33 @@ def check(request):
         print("ya")
         return redirect(f"/home/")
     else:
-        return HttpResponse("Access Denied. Face didnt match")    
+        return HttpResponse("Access Denied. Face didnt match")   
+
+
+#Available Teams
+def addTeam(request):
+    if request.method == 'POST':
+        teamName = request.POST.get('name')  # Get the team name from the form
+        # Create a new Team instance and save it to the database
+        newTeam = team(name=teamName)
+        newTeam.save()
+        return redirect('addTeam')
+    
+    return render(request, 'availableteam.html', {'teams': team.objects.all()}) 
+
+
+#Delete Team
+def deleteTeam(request, slug):
+    delTeam = team.objects.get(id=slug)
+    delTeam.delete()
+
+        
+    
+    return redirect('addTeam')
+
+
+
+    
     
 
         

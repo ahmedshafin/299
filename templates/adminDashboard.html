@@ -7,8 +7,33 @@
 
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CSS -->
+	
 	<!-- My CSS -->
 	<link rel="stylesheet" href="{% static 'style.css' %}">
+
+	<style>
+		/* Style for the track button */
+		.track-button {
+		  background-color: #4CAF50; /* Green */
+		  border: none;
+		  color: white;
+		  padding: 10px 20px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 16px;
+		  margin: 4px 2px;
+		  cursor: pointer;
+		  border-radius: 8px;
+		  transition-duration: 0.4s;
+		}
+	  
+		/* Hover effect */
+		.track-button:hover {
+		  background-color: #037609; /* Darker green */
+		}
+	  </style>
 	
 
 	<title>FlameShield_Dashboard</title>
@@ -49,7 +74,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a href="/addTeam/">
 					<i class='bx bxs-group' ></i>
 					<span class="text">Available Team</span>
 				</a>
@@ -173,7 +198,12 @@
 								
 								<form action ="{% url 'map' i.id %}" method="POST">
 									{% csrf_token %}
-								<td><input type="submit" name="track" value="Track"></input></td>
+									<td>
+										<span class="track-button">
+										  <i class="fas fa-map-marker-alt icon"></i>
+										  <input type="submit" name="track" value="Track" style="background-color: transparent; border: none; color: inherit; cursor: inherit;">
+										</span>
+									  </td>
 							</form>
 							</tr>
 						{% endfor %}

@@ -33,6 +33,9 @@ class TestUser(models.Model):
     user=models.TextField()
     img= models.TextField()
 
+class team(models.Model):
+    name = models.CharField(max_length=100)
+
 
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import contactUs, report,addRestaurentModel, picture, TestUser
+from app1.models import contactUs, report,addRestaurentModel, picture, TestUser, team
 
 # Register your models here.
 
@@ -21,4 +21,10 @@ admin.site.register(addRestaurentModel, restaurantAdmin)
 admin.site.register([
     picture, TestUser
 ])
+
+class teamAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+admin.site.register(team, teamAdmin)
+
 

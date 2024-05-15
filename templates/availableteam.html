@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fire Team Management</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
+    h2 {
+        color: #333;
+    }
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .action-button {
+        padding: 8px 16px;
+        background-color: #c02121; /* Green */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .action-button:hover {
+        background-color: #f5c000; /* Darker green */
+    }
+
+    /* Style for icon */
+    .action-icon {
+        margin-right: 5px;
+    }
+
+    /* Style for button container */
+    .action-button-container {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Style for spacing between button and text */
+    .action-button-container td {
+        padding-right: 10px;
+    }
+</style>
+</head>
+<body>
+
+    <h2>Fire Team Management</h2>
+
+    <!-- Add Team Form -->
+    <form method="post" action="{% url 'addTeam' %}">
+        {% csrf_token %}
+        <label for="team_name">Team Name:</label><br>
+        <input type="text" id="team_name" name="name"><br>
+        <input type="submit" value="Add Team">
+    </form>
+
+    <table id="team-list">
+        <tbody>
+            <!-- Loop through teams and display them -->
+            <!-- For demonstration purpose, let's assume teams is a list of dictionaries with 'name' key -->
+            {% for team in teams %}
+            <tr>
+                <td>{{ team.name }}</td>
+
+                <form action="{% url 'deleteTeam' team.id %}" method="post">
+                    {% csrf_token %}
+                <td class="action-button-container">
+                    <div>
+                        <button class="action-button"><i class="fas fa-cog action-icon"></i>Delete</button>
+                    </div>
+                    <!-- You can add more buttons or actions here -->
+                </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+
+</body>
+</html>
