@@ -251,7 +251,15 @@ def deleteCertificate(request, slug):
     return redirect('dashboardView')
 
 
-
+#Search Bar
+def searchReports(request):
+    if request.method == 'POST':
+        location_query = request.POST.get('q')
+        # Search for reports based on the provided location
+        reports = report.objects.filter(location__icontains=location_query)
+        return render(request, 'search_results.html', {'reports': reports})
+    else:
+        return render(request, 'search_form.html')
 
     
 

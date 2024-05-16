@@ -41,6 +41,7 @@ urlpatterns = [
     path('addTeam/', views.addTeam, name='addTeam'),
     path('deleteTeam/<int:slug>', views.deleteTeam, name = "deleteTeam"),
     path('deleteCertificate/<int:slug>', views.deleteCertificate, name = "deleteCertificate"),
+    path('search/', views.searchReports, name='search_reports'),
     
    
     
