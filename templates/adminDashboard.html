@@ -283,7 +283,21 @@
 									<p>{{i.location}}</p>
 								</td>
 								<td>{{i.cause}}</td>
-								<td><span class="status completed">Completed</span></td>
+								
+								
+								
+								<td>
+									<div class="dropdown">
+										<button class="dropbtn">Resolve</button>
+										<div class="dropdown-content">
+											{% for team in availableTeam %}
+											<a href="#">{{ team.name }}</a>
+											{% endfor %}
+										</div>
+									</div>
+								</td>
+
+								
 								
 								<form action ="{% url 'map' i.id %}" method="POST">
 									{% csrf_token %}

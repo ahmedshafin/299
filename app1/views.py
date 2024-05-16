@@ -49,6 +49,7 @@ def dashboardView(request):
     restaurents = addRestaurentModel.objects.filter()
     notification = contactUsModel.objects.filter()
     notification_count = len(notification)
+    availableTeam = team.objects.filter()
     
     args = {
         "reports": reports,
@@ -56,7 +57,9 @@ def dashboardView(request):
         "user_count":user_count,
         "certificates_count":certificates_count,
         "restaurents":restaurents,
-        "notification_count":notification_count
+        "notification_count":notification_count,
+        "availableTeam":availableTeam
+
     }
     return render(request, 'adminDashboard.html', args)
 
@@ -246,6 +249,11 @@ def deleteCertificate(request, slug):
     delCertificate.delete()
 
     return redirect('dashboardView')
+
+
+
+
+    
 
 
 
