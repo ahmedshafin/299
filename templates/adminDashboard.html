@@ -33,6 +33,95 @@
 		.track-button:hover {
 		  background-color: #037609; /* Darker green */
 		}
+
+		.restaurant-table {
+    		width: 100%;
+    		border-collapse: collapse;
+		}
+
+		.restaurant-table th, .restaurant-table td {
+    		border: 1px solid #ddd;
+    		padding: 8px;
+		}
+
+		.restaurant-table th {
+    		background-color: #f2f2f2;
+    		text-align: left;
+		}
+		.delete-button {
+        background-color: #dc3545; /* Red background color */
+        border: none;
+        color: white;
+        padding: 8px 16px; /* Padding to increase button size */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        border-radius: 4px; /* Rounded corners */
+        cursor: pointer;
+        transition: background-color 0.3s; /* Smooth transition on hover */
+    }
+
+    .delete-button:hover {
+        background-color: #c97d1a; /* Darker red on hover */
+    }
+	.button {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 1px solid #34974d;
+  background-color: #3aa856;
+}
+
+.button, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #34974d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 30px;
+  stroke: #fff;
+}
+
+.button:hover {
+  background: #34974d;
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button:hover .button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.button:active .button__icon {
+  background-color: #2e8644;
+}
+
+.button:active {
+  border: 1px solid #2e8644;
+}
 	  </style>
 	
 
@@ -218,37 +307,49 @@
 						<i class='bx bx-filter' ></i>
 						
 					</div>
-					<div class="dropdown">
-						<button class="dropbtn">Options</button>
-						<div class="dropdown-content">
-						  <a href="/addRestaurent">Add Restaurent</a>
-						  <a href="admin/app2/addrestaurentmodel">Update Restaurent</a>
-						  <a href="#">Delete Restaurent</a>
-						</div>
-					  </div>
-					<!-- <ul class="todo-list">
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-						<li class="not-completed">
-							<p>Todo List</p>
-							<i class='bx bx-dots-vertical-rounded' ></i>
-						</li>
-					</ul> -->
+					<a href="{% url 'addRestaurent' %}" class="button">
+						<span class="button__text">Add</span>
+						<span class="button__icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+								<line y2="19" y1="5" x2="12" x1="12"></line>
+								<line y2="12" y1="12" x2="19" x1="5"></line>
+							</svg>
+						</span>
+					</a>
+					
+					  
+					  <h3>Certificates List</h3>
+					  <table class="restaurant-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Issued By</th>
+								<th>Validation</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for restaurant in restaurents %}
+							<tr>
+								<td>{{ restaurant.commpanyName }}</td>
+								<td>{{ restaurant.issuedBy }}</td>
+								<td>{{ restaurant.expiryDate }}</td>
+								<td>
+									<form method="POST" action="{% url 'deleteCertificate' restaurant.id %}">
+										{% csrf_token %}
+										<button type="submit" class="delete-button">Delete</button>
+									</form>
+								</td>
+								
+								
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					
+					
 				</div>
+				
 			</div>
 		</main>
 		<!-- MAIN -->

@@ -39,17 +39,21 @@ def signUpView(request):
 
 #Admin Dashboard
 def dashboardView(request):
+    
     reports = report.objects.filter()
     report_count= len(reports)
     all_users = User.objects.all()
     user_count = len(all_users)
     all_certificates = addRestaurentModel.objects.filter()
     certificates_count = len(all_certificates)
+    restaurents = addRestaurentModel.objects.filter()
     args = {
         "reports": reports,
         "report_count":report_count,
         "user_count":user_count,
-        "certificates_count":certificates_count
+        "certificates_count":certificates_count,
+        "restaurents":restaurents
+        
     }
     return render(request, 'adminDashboard.html', args)
 
@@ -230,9 +234,15 @@ def deleteTeam(request, slug):
     delTeam = team.objects.get(id=slug)
     delTeam.delete()
 
-        
-    
     return redirect('addTeam')
+
+
+#Delete Certificate
+def deleteCertificate(request, slug):
+    delCertificate = addRestaurentModel.objects.get(id=slug)
+    delCertificate.delete()
+
+    return redirect('dashboardView')
 
 
 

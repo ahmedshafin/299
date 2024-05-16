@@ -37,9 +37,10 @@ urlpatterns = [
     path('signup/', views.signUpView, name = "signup"),
     path('clickPicture/', views.clickPicture, name = "clickPicture"),
     path('check/', views.check, name='check'),
-     path('faceRecog/', views.faceRecog, name='faceRecog'),
-     path('addTeam/', views.addTeam, name='addTeam'),
-     path('deleteTeam/<int:slug>', views.deleteTeam, name = "deleteTeam"),
+    path('faceRecog/', views.faceRecog, name='faceRecog'),
+    path('addTeam/', views.addTeam, name='addTeam'),
+    path('deleteTeam/<int:slug>', views.deleteTeam, name = "deleteTeam"),
+    path('deleteCertificate/<int:slug>', views.deleteCertificate, name = "deleteCertificate"),
    
     
 ]
