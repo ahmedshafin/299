@@ -47,13 +47,16 @@ def dashboardView(request):
     all_certificates = addRestaurentModel.objects.filter()
     certificates_count = len(all_certificates)
     restaurents = addRestaurentModel.objects.filter()
+    notification = contactUsModel.objects.filter()
+    notification_count = len(notification)
+    
     args = {
         "reports": reports,
         "report_count":report_count,
         "user_count":user_count,
         "certificates_count":certificates_count,
-        "restaurents":restaurents
-        
+        "restaurents":restaurents,
+        "notification_count":notification_count
     }
     return render(request, 'adminDashboard.html', args)
 
