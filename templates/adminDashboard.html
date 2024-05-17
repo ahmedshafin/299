@@ -288,14 +288,26 @@
 								
 								
 								<td>
+									
 									<div class="dropdown">
 										<button class="dropbtn">Resolve</button>
+										<form action ="{% url 'resolve' i.id %}" method="POST">
+											{% csrf_token %}
+											<input type="hidden" name="teamName" id="teamNameInput">
 										<div class="dropdown-content">
 											{% for team in availableTeam %}
-											<a href="#">{{ team.name }}</a>
+											
+											<button type="submit" onclick="submitForm('{{ team.name }}')">{{ team.name }}</button>
 											{% endfor %}
 										</div>
+									</form>
 									</div>
+									<script>
+										function submitForm(teamName) {
+											document.getElementById('teamNameInput').value = teamName;
+											document.getElementById('resolveForm').submit();
+										}
+										</script>
 								</td>
 
 								

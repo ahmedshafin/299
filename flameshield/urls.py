@@ -42,6 +42,7 @@ urlpatterns = [
     path('deleteTeam/<int:slug>', views.deleteTeam, name = "deleteTeam"),
     path('deleteCertificate/<int:slug>', views.deleteCertificate, name = "deleteCertificate"),
     path('search/', views.searchReports, name='search_reports'),
+    path('resolve/<int:slug>', views.resolve, name='resolve'),
     
    
     

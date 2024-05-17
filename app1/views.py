@@ -261,6 +261,19 @@ def searchReports(request):
     else:
         return render(request, 'search_form.html')
 
+def resolve(request, slug):
+    print("haha")
+    print(slug)
+    if request.method == 'POST':
+        teamName = request.POST.get('teamName')
+        print(teamName)
+        
+    delTeam = team.objects.get(name=teamName)
+    delTeam.delete()
+    delReport = report.objects.get(id=slug)
+    delReport.delete()
+    
+    return redirect('dashboardView')
     
 
 
