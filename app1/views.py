@@ -1,8 +1,9 @@
 import base64
+import datetime
 import os
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser, team
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser, team, history
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -267,14 +268,25 @@ def resolve(request, slug):
     if request.method == 'POST':
         teamName = request.POST.get('teamName')
         print(teamName)
-        
-    delTeam = team.objects.get(name=teamName)
-    delTeam.delete()
     delReport = report.objects.get(id=slug)
+    current_date = datetime.date.today()
+    current_time = datetime.datetime.now().time()
+    log = f"Date: {current_date}, Time: {current_time}, Team name: {teamName}, solved the case report ID: {delReport.id}, location: {delReport.location}"
+    history_entry = history(log=log)
+    history_entry.save()
+    
+    delTeam = team.objects.get(name=teamName)
+    
+    delTeam.delete()
+    
     delReport.delete()
     
     return redirect('dashboardView')
+
+def log(request):
+    log = history.objects.all()
     
+    return render(request, 'log.html',{'log': log})
 
 
 

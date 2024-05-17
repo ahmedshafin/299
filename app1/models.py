@@ -35,6 +35,9 @@ class TestUser(models.Model):
 
 class team(models.Model):
     name = models.CharField(max_length=100)
+    
+class history(models.Model):
+    log = models.CharField(max_length=500)
 
 
 
