@@ -12,6 +12,7 @@
         padding: 20px;
     }
     h2 {
+        text-align: center;
         color: #333;
     }
     form {
@@ -49,6 +50,7 @@
         background-color: #fff;
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
     }
     th, td {
         padding: 12px 15px;
@@ -62,112 +64,97 @@
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
-
     .action-button {
         padding: 8px 16px;
-        background-color: #c02121; /* Green */
+        background-color: #c02121;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
     }
     .action-button:hover {
-        background-color: #f5c000; /* Darker green */
+        background-color: #f5c000;
     }
-
-    /* Style for icon */
     .action-icon {
         margin-right: 5px;
     }
-
-    /* Style for button container */
     .action-button-container {
         display: flex;
         align-items: center;
     }
-
-    /* Style for spacing between button and text */
     .action-button-container td {
         padding-right: 10px;
     }
-
-    /* Backbutton style */
     .cssbuttons-io-button {
-  background: #a370f0;
-  color: white;
-  font-family: inherit;
-  padding: 0.35em;
-  padding-left: 1.2em;
-  font-size: 17px;
-  font-weight: 500;
-  border-radius: 0.9em;
-  border: none;
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  box-shadow: inset 0 0 1.6em -0.6em #714da6;
-  overflow: hidden;
-  position: relative;
-  height: 2.8em;
-  padding-right: 3.3em;
-  cursor: pointer;
-}
-
-.cssbuttons-io-button .icon {
-  background: white;
-  margin-left: 1em;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.2em;
-  width: 2.2em;
-  border-radius: 0.7em;
-  box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
-  right: 0.3em;
-  transition: all 0.3s;
-}
-
-.cssbuttons-io-button:hover .icon {
-  width: calc(100% - 0.6em);
-}
-
-.cssbuttons-io-button .icon svg {
-  width: 1.1em;
-  transition: transform 0.3s;
-  color: #7b52b9;
-}
-
-.cssbuttons-io-button:hover .icon svg {
-  transform: translateX(0.1em);
-}
-
-.cssbuttons-io-button:active .icon {
-  transform: scale(0.95);
-}
+        background: #a370f0;
+        color: white;
+        font-family: inherit;
+        padding: 0.35em;
+        padding-left: 1.2em;
+        font-size: 17px;
+        font-weight: 500;
+        border-radius: 0.9em;
+        border: none;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        box-shadow: inset 0 0 1.6em -0.6em #714da6;
+        overflow: hidden;
+        position: relative;
+        height: 2.8em;
+        padding-right: 3.3em;
+        cursor: pointer;
+    }
+    .cssbuttons-io-button .icon {
+        background: white;
+        margin-left: 1em;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.2em;
+        width: 2.2em;
+        border-radius: 0.7em;
+        box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
+        right: 0.3em;
+        transition: all 0.3s;
+    }
+    .cssbuttons-io-button:hover .icon {
+        width: calc(100% - 0.6em);
+    }
+    .cssbuttons-io-button .icon svg {
+        width: 1.1em;
+        transition: transform 0.3s;
+        color: #7b52b9;
+    }
+    .cssbuttons-io-button:hover .icon svg {
+        transform: translateX(0.1em);
+    }
+    .cssbuttons-io-button:active .icon {
+        transform: scale(0.95);
+    }
 </style>
 </head>
 <body>
 
     <h2>Cases Resolved Log/History</h2>
 
-    {% for i in log %}
+    
     <table id="team-list">
-        
+   
         <tbody>
-            <!-- Loop through teams and display them -->
-            <!-- For demonstration purpose, let's assume teams is a list of dictionaries with 'name' key -->
-            
-          {{i.log}}
-            
+            {% for i in log %}
+            <tr>
+                <td>{{ i.log }}</td>
+                
+            </tr>
+            {% endfor %}
         </tbody>
-        
     </table>
-    {% endfor %}
+    
 
-     <!-- Button to return to dashboard -->
-     
-     <a href="{% url 'dashboardView' %}" class="cssbuttons-io-button">
+    <!-- Button to return to dashboard -->
+    <a href="{% url 'dashboardView' %}" class="cssbuttons-io-button">
         Dashboard
         <div class="icon">
             <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -177,8 +164,5 @@
         </div>
     </a>
     
-    
-
-
 </body>
 </html>
