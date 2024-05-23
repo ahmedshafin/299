@@ -31,6 +31,7 @@ urlpatterns = [
     path('certificate/', views.certificateView, name = "certificate"),
     path('dashboard/', views.dashboardView, name= 'dashboardView'),
     path('map/<int:slug>', views.map, name= 'map'),
+    path('map2/<int:slug>', views.map2, name= 'map2'),
     path('addRestaurent/', views.addRestaurentView, name= 'addRestaurent'),
     path('displayContact/', views.displayContactView, name = "displayContact"),
     path('deleteContact/<int:slug>', views.deleteContact, name = "deleteContact"),
@@ -44,6 +45,8 @@ urlpatterns = [
     path('search/', views.searchReports, name='search_reports'),
     path('resolve/<int:slug>', views.resolve, name='resolve'),
     path('log/', views.log, name='log'),
+    path('team/', views.teamLogin, name='team'),
+    path('teamUpdate/<int:slug>', views.teamUpdate, name='teamUpdate'),
     
    
     

@@ -36,6 +36,18 @@ class TestUser(models.Model):
 class team(models.Model):
     name = models.CharField(max_length=100)
     
+class assignedTeam(models.Model):
+    name = models.CharField(max_length=100)
+    assigned = models.IntegerField(default=0)
+    location = models.CharField(max_length=50, null=True)
+    cause = models.CharField(max_length=50, null=True)
+    damage = models.CharField(max_length=50, null=True)
+    comments = models.TextField( null=True)
+    latitude = models.FloatField( null=True)
+    longitude = models.FloatField( null=True)
+    complete = models.CharField(max_length=200, null=True)
+    
+    
 class history(models.Model):
     log = models.CharField(max_length=500)
 

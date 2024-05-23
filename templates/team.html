@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Team Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #555;
+            color: white;
+        }
+        .container {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Fire Team</h1>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <div class="container">
+        <h2>Fire Team Dashboard</h2>
+        {% for i in teams %}
+        <p>{{i.name}} {{i.location}} {{i.cause}}</p>
+        <form action ="{% url 'teamUpdate' i.id %}" method="POST">
+        {% csrf_token %}
+        <textarea id="my_text_area" name="my_text_area" rows="4" cols="50" placeholder="Enter text here..."></textarea>
+        
+          
+        <input type="submit" value="Done">
+    </form>
+										
+                                            <form action ="{% url 'map2' i.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <td>
+                                                    <span class="track-button">
+                                                      <i class="fas fa-map-marker-alt icon"></i>
+                                                      <input type="submit" name="track" value="Track" style="background-color: transparent; border: none; color: inherit; cursor: inherit;">
+                                                    </span>
+                                                  </td>
+                                        </form>
+        {% endfor %}
+    </div>
+    <footer>
+        <p>&copy; 2024 Fire Team. All rights reserved.</p>
+    </footer>
+</body>
+</html>

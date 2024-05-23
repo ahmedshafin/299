@@ -290,7 +290,7 @@
 								<td>
 									
 									<div class="dropdown">
-										<button class="dropbtn">Resolve</button>
+										<button class="dropbtn">Assign</button>
 										<form action ="{% url 'resolve' i.id %}" method="POST">
 											{% csrf_token %}
 											<input type="hidden" name="teamName" id="teamNameInput">

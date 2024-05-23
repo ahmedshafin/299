@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import contactUs, report,addRestaurentModel, picture, TestUser, team, history
+from app1.models import contactUs, report,addRestaurentModel, picture, TestUser, team, history, assignedTeam
 
 # Register your models here.
 
@@ -27,4 +27,5 @@ class teamAdmin(admin.ModelAdmin):
 
 admin.site.register(team, teamAdmin)
 
+admin.site.register(assignedTeam)
 
