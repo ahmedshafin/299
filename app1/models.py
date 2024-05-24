@@ -52,5 +52,12 @@ class history(models.Model):
     log = models.CharField(max_length=500)
 
 
+class emergencyReport(models.Model) :
+    location = models.CharField(max_length=50)
+    phoneNumber = models.IntegerField()
+    comments = models.TextField()
+    
+
+
 
 

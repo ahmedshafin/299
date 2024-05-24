@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app1.models import contactUs, report,addRestaurentModel, picture, TestUser, team, history, assignedTeam
+from app1.models import contactUs, report,addRestaurentModel, picture, TestUser, team, history, assignedTeam, emergencyReport
 
 # Register your models here.
 
@@ -28,6 +28,12 @@ class teamAdmin(admin.ModelAdmin):
 admin.site.register(team, teamAdmin)
 
 admin.site.register(assignedTeam)
+
+
+class emergencyAdmin(admin.ModelAdmin):
+    list_display = ('location','phoneNumber', 'comments')
+
+admin.site.register(emergencyReport, emergencyAdmin)
 
 
 

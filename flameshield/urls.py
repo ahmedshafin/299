@@ -47,7 +47,8 @@ urlpatterns = [
     path('log/', views.log, name='log'),
     path('team/', views.teamLogin, name='team'),
     path('teamUpdate/<int:slug>', views.teamUpdate, name='teamUpdate'),
-    
+    path('emergency/', views.emergencyView, name='emergency'),
+    path('emergencyDisplay/', views.displayEmergency, name='emergencyDisplay'),
    
     
 ]

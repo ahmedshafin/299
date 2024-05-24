@@ -3,7 +3,7 @@ import datetime
 import os
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
-from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser, team, history,assignedTeam
+from app1.models import contactUs as contactUsModel, report, addRestaurentModel, report, picture, TestUser, team, history,assignedTeam,emergencyReport
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .decorators import unauthenticated_user, admin_only
@@ -330,12 +330,35 @@ def teamUpdate(request,slug):
     
     current_date = datetime.date.today()
     current_time = datetime.datetime.now().time()
-    log = f"Date: {current_date}, Time: {current_time}, Team name: {teams.name}, solved the case report ID: {teams.id}, location: {teams.location} Comments: {teams.complete} WORK DONE"
+    log = f"Date: {current_date}, Time: {current_time}, Team name: {teams.name}, solved the case report ID: {teams.id}, location: {teams.location} Comments: {teams.complete} COMPLETED"
     history_entry = history(log=log)
     history_entry.save()
 
     teams.delete()
     return redirect(teamLogin)
+
+
+
+#Emergency fire report
+def emergencyView(request):
+
+    if request.method =='POST' :
+        loc = request.POST.get('locations')
+        phoneNumber = request.POST.get('phone')
+        message = request.POST.get('description')
+        em = emergencyReport(location=loc, phoneNumber=phoneNumber, comments=message)
+        em.save()
+        return redirect('/')
+
+    return render(request, "emergency.html")
+
+
+
+#Displaying the emergency report
+def displayEmergency(request):
+    emergency = emergencyReport.objects.all()
+
+    return render(request, 'emergencyDisplay.html', {'emergency': emergency})
 
 
 
